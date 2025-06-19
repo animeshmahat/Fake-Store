@@ -47,3 +47,31 @@
 h3 {
   color: black;
 }
+
+.place-order-btn {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.place-order-btn:hover {
+  background-color: darkgreen;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.center-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 65px);
+  width: 100%;
+}
+
+.center-page h1 {
+  text-align: center;
+  color: black;
+}

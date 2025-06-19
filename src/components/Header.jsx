@@ -12,7 +12,7 @@ export default function Header() {
         FakeStore
       </Link>
 
-      <nav>
+      <nav className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/cart">Cart ({cartItems.length})</Link>
       </nav>

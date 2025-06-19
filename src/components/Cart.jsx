@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import "./Cart.css";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
@@ -13,9 +14,9 @@ export default function Cart() {
 
   if (cartItems.length === 0) {
     return (
-      <h1 style={{ textAlign: "center", marginTop: "2rem", color: "black" }}>
-        🛒 Your Cart is Empty!!!
-      </h1>
+      <div className="center-page">
+        <h1>🛒 Your Cart is Empty!!!</h1>
+      </div>
     );
   }
 
@@ -44,6 +45,9 @@ export default function Cart() {
       </div>
 
       <h3>Total: ${totalPrice.toFixed(2)}</h3>
+      <Link to="/checkout">
+        <button className="place-order-btn">Go to Checkout</button>
+      </Link>
     </div>
   );
 }

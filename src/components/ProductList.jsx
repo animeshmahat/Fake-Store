@@ -2,40 +2,67 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ProductList.css";
 import { CartContext } from "../Context/CartContext";
+import Spinner from "./Spinner";
+import ProductCard from "./ProductCard";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]); // State to hold the list of products
+
+  // Raw Data
+  const [allProducts, setAllProducts] = useState([]);
+  const [categories, setCatgories] = useState([]);
 
   const [loading, setLoading] = useState(true); // State to track loading
 
   const [error, setError] = useState(null); // State to handle errors
 
-  const { addToCart } = useContext(CartContext);
+  // Search
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   // UseEffect to fetch data when the components mounts
   useEffect(() => {
     // Fetch products from the fakeStore API
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => {
-        if (!res.ok) {
-          // Handle HTTP errors
-          throw new Error("Failed to fetch products");
+    async function fetchData() {
+      try {
+        const productRes = await fetch("https://fakestoreapi.com/products");
+        const categoryRes = await fetch(
+          "https://fakestoreapi.com/products/categories"
+        );
+
+        if (!productRes.ok || !categoryRes.ok) {
+          throw new Error("Failed to fetch data");
         }
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data); // Store fetched products
-        setLoading(false); // Turn off loading
-      })
-      .catch((err) => {
+
+        const productData = await productRes.json();
+        const categoryData = await categoryRes.json();
+
+        setProducts(productData);
+        setAllProducts(productData); // For Filtering
+        setCatgories(categoryData);
+        setLoading(false);
+      } catch (err) {
         setError(err.message); // Set error message
         setLoading(true); // Turn off loading
-      });
+      }
+    }
+    fetchData();
   }, []); // Empty dependency array means this runs once after first render
+
+  // Handle filter logic
+  const filteredProducts = allProducts.filter((product) => {
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || product.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   // Show loading state
   if (loading) {
-    return <h2 style={{ color: "#000" }}>Loading Products...</h2>;
+    return <Spinner />;
   }
 
   // Show error message if there is an error
@@ -44,26 +71,40 @@ export default function ProductList() {
   }
 
   return (
-    <div className="product-grid">
-      {/* Map each product and render a card */}
-      {products.map((product) => (
-        <div className="product-card" key={product.id}>
-          {/* Display product image */}
-          <img
-            src={product.image || "/default-image.png"}
-            alt={product.title}
-          />{" "}
-          <hr style={{ color: "#444" }} />
-          {/* Display product title */}
-          <h3>{product.title}</h3>
-          {/* Display product price */}
-          <p>${product.price.toFixed(2)}</p>
-          {/* View Details Button */}
-          <Link to={`/product/${product.id}`}>
-            <button className="view-btn">View Details</button>
-          </Link>
-        </div>
-      ))}
+    <div>
+      {/* Filter UI */}
+
+      <div className="filter-bar">
+        <input
+          type="text"
+          placeholder="Search Products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="all">All Categories</option>
+          {categories.map((cat) => (
+            <option value={cat} key={cat}>
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="product-grid">
+        {/* Map each product and render a card */}
+        {filteredProducts.length === 0 ? (
+          <p style={{ color: "red" }}>No products match your search.</p>
+        ) : (
+          filteredProducts.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

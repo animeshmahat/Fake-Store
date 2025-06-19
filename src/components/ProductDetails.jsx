@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./ProductDetails.css";
 import { CartContext } from "../Context/CartContext";
+import Spinner from "./Spinner";
 
 export default function ProductDetails() {
   const { id } = useParams(); // Get product ID from URL
@@ -33,8 +34,7 @@ export default function ProductDetails() {
       });
   }, [id]); // Re-fetch if ID changes
 
-  if (loading)
-    return <h2 style={{ color: "#000" }}>Loading product details...</h2>;
+  if (loading) return <Spinner />;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (

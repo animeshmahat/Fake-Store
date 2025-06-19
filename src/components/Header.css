@@ -5,6 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky; /* Makes header stick to top */
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -14,14 +19,31 @@
   text-decoration: none;
 }
 
-nav a {
+.nav-links a {
   color: white;
   text-decoration: none;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
   font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
 }
 
-nav a:hover {
+.nav-links a:hover {
   text-decoration: underline;
-  transition: text-decoration 0.5s;
+}
+
+/* Optional: Add a nice hover effect */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
