@@ -6,6 +6,7 @@ import ProductDetails from "./components/ProductDetails";
 import Header from "./components/Header";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
+import Confirmation from "./components/Confirmation";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />}></Route>
+          <Route path="/confirmation" element={<Confirmation />}></Route>
         </Routes>
       </main>
     </div>

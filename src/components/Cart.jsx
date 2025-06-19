@@ -4,7 +4,7 @@ import "./Cart.css";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
 
   // Calculate total price
   const totalPrice = cartItems.reduce(
@@ -32,9 +32,27 @@ export default function Cart() {
               <h3>Product Name- {item.title}</h3>
               <p>Quantity- {item.quantity}</p>
               <p>Price- ${item.price.toFixed(2)}</p>
+
+              {/* Quantity Controls */}
+              <div className="quantity-controls">
+                <button
+                  onClick={() => updateQuantity(item.id, -1)}
+                  disabled={item.quantity === 1}
+                >
+                  - Reduce Quantity
+                </button>
+              </div>
               <p>Subtotal- ${(item.price * item.quantity).toFixed(2)}</p>
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "Are you sure you want to remove this item from the cart?"
+                    )
+                  ) {
+                    removeFromCart(item.id);
+                  }
+                }}
                 className="remove-btn"
               >
                 🗑️ Remove from cart

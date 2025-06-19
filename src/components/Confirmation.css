@@ -1,0 +1,41 @@
+.confirmation {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ddd;
+  text-align: center;
+}
+
+.confirmation ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.confirmation li {
+  margin-bottom: 0.4rem;
+}
+
+.summary-box {
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+.home-btn {
+  border: none;
+  border-radius: 5px;
+  background-color: #0077cc;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: black;
+}
+
+.home-btn:hover {
+  background-color: #005fa3;
+}

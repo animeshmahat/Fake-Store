@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import { useNavigate } from "react-router-dom";
-import "./checkout.css";
+import "./Checkout.css";
 
 export default function () {
   const { cartItems, clearCart } = useContext(CartContext);
@@ -27,12 +27,22 @@ export default function () {
       return;
     }
 
-    // Normally, we'd send this to a backend here
-    alert(`Order Placed! Thank You ${name}`);
+    // Create user and cart snapshot
+    const user = { name, email, address };
+    const orderTotal = total;
+    const cartSnapshot = [...cartItems];
 
-    // Clear cart and go back to home
+    // Clear cart
     clearCart();
-    navigate("/");
+
+    // Navigate to confirmation
+    navigate("/confirmation", {
+      state: {
+        user,
+        items: cartSnapshot,
+        total: orderTotal,
+      },
+    });
   };
 
   if (cartItems.length === 0) {
