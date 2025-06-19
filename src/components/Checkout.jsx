@@ -2,15 +2,22 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
+import { toast } from "react-toastify";
 
 export default function () {
   const { cartItems, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  // Form states
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
+  // Form states - Using lazy state initialization so that localStorage is only read once at load
+  const [name, setName] = useState(
+    () => localStorage.getItem("checkoutName") || ""
+  );
+  const [email, setEmail] = useState(
+    () => localStorage.getItem("checkoutEmail") || ""
+  );
+  const [address, setAddress] = useState(
+    () => localStorage.getItem("checkoutAddress") || ""
+  );
   const [error, setError] = useState("");
 
   const total = cartItems.reduce(
@@ -27,6 +34,9 @@ export default function () {
       return;
     }
 
+    // Toast
+    toast.success("Order placed successfully!!!");
+
     // Create user and cart snapshot
     const user = { name, email, address };
     const orderTotal = total;
@@ -34,6 +44,11 @@ export default function () {
 
     // Clear cart
     clearCart();
+
+    // Clear stored info
+    localStorage.removeItem("checkoutName");
+    localStorage.removeItem("checkoutEmail");
+    localStorage.removeItem("checkoutAddress");
 
     // Navigate to confirmation
     navigate("/confirmation", {
@@ -62,20 +77,29 @@ export default function () {
           type="text"
           placeholder="Full Name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            localStorage.setItem("checkoutName", e.target.value);
+          }}
         />
 
         <input
           type="email"
           placeholder="Your Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            localStorage.setItem("checkoutEmail", e.target.value);
+          }}
         />
 
         <textarea
           placeholder="Shipping Address"
           value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={(e) => {
+            setAddress(e.target.value);
+            localStorage.setItem("checkoutAddress", e.target.value);
+          }}
         ></textarea>
 
         {error && <p className="error">{error}</p>}
