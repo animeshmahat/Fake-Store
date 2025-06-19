@@ -12,6 +12,8 @@ export default function ProductDetails() {
 
   const [error, setError] = useState(null);
 
+  const [added, setAdded] = useState(false);
+
   // Use Cart Context
   const { addToCart } = useContext(CartContext);
 
@@ -48,9 +50,16 @@ export default function ProductDetails() {
           ⭐ {product.rating.rate} / 5({product.rating.count}) reviews
         </p>
         {/* Add to cart button */}
-        <button onClick={() => addToCart(product)} className="back-btn">
-          🛒 Add to Cart
-        </button>{" "}
+        <button
+          onClick={() => {
+            addToCart(product);
+            setAdded(true);
+            setTimeout(() => setAdded(false), 1000);
+          }}
+          className="back-btn"
+        >
+          {added ? "✅ Added" : "🛒 Add to Cart"}
+        </button>
         <br />
         <Link to="/">
           <button className="back-btn">🔙 Back to Products</button>
