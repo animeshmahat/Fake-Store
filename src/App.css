@@ -1,3 +1,47 @@
+:root {
+  --color-bg: #ffffff;
+  --color-text: #222222;
+  --color-primary: #0077cc;
+  --color-button-bg: #f9f9f9;
+  --color-button-text: #222;
+  --color-link: #0077cc;
+  --color-link-hover: #005fa3;
+
+  --color-bg-dark: #1e1e1e;
+  --color-text-dark: #ffffff;
+  --color-button-bg-dark: #333;
+  --color-button-text-dark: #fff;
+  --color-link-dark: #66aaff;
+  --color-link-hover-dark: #88bbff;
+
+  transition: all 0.3s ease-in-out;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+body.light {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body.dark {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+}
+
+a {
+  color: var(--color-link);
+}
+body.dark a {
+  color: var(--color-link-dark);
+}
+a:hover {
+  color: var(--color-link-hover);
+}
+body.dark a:hover {
+  color: var(--color-link-hover-dark);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,19 +56,37 @@ body,
 }
 
 .app-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .main-content {
   flex: 1;
+  padding: 1rem;
 }
+
 h1,
-h2 h3 {
-  color: #222;
+h2,
+h3 {
+  color: inherit;
 }
 
 button {
   font-family: inherit;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+body.dark button {
+  background-color: var(--color-button-bg-dark);
+  color: var(--color-button-text-dark);
+}
+button:hover {
+  opacity: 0.9;
 }

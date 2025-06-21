@@ -1,9 +1,11 @@
 .checkout {
   margin: 2rem auto;
-  background-color: #fff;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #ddd;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.15);
 }
 
 .checkout-form {
@@ -16,9 +18,18 @@
   margin-bottom: 1rem;
   padding: 0.8rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
   font-family: inherit;
   font-size: 1rem;
+  background-color: white;
+  color: black;
+}
+
+body.dark .checkout-form input,
+body.dark .checkout-form textarea {
+  background-color: #2d2d2d;
+  color: white;
+  border: 1px solid #666;
 }
 
 textarea {
@@ -33,7 +44,8 @@ textarea {
 
 .order-summary {
   margin-bottom: 0.5rem;
-  color: black;
+  padding-left: 1rem;
+  color: var(--color-text);
 }
 
 .total {
@@ -44,14 +56,13 @@ textarea {
 
 .place-order-btn {
   padding: 0.7rem 1.2rem;
-  background-color: #28a745;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
 }
-
 .place-order-btn:hover {
-  background-color: #218838;
+  background-color: #005fa3;
 }

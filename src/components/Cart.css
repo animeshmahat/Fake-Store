@@ -11,56 +11,71 @@
 
 .cart-item {
   display: flex;
-  align-items: center;
-  border: 1px solid #ddd;
-  padding: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--color-link);
+  padding: 1.5rem;
   margin: 1rem;
   border-radius: 10px;
   max-width: 600px;
   width: 100%;
-  background-color: #fff;
-  color: black;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: all 0.3s ease;
 }
 
 .cart-item img {
   width: 100px;
-  height: 80px;
-  margin-right: 1rem;
+  height: auto;
+  margin-bottom: 1rem;
   border: 1px solid grey;
-  padding: 1rem;
+  padding: 0.5rem;
+  background-color: white;
+}
+
+.cart-details {
+  flex: 1;
+}
+
+.remove-btn,
+.place-order-btn,
+.quantity-controls button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
 }
 
 .remove-btn {
-  margin-top: 0.5rem;
-  padding: 0.4rem 0.8rem;
   background-color: #e74c3c;
-  color: white;
-  border: 5px;
-  cursor: pointer;
 }
-
 .remove-btn:hover {
   background-color: #c0392b;
-  transition: background-color 0.2s;
-}
-
-h3 {
-  color: black;
 }
 
 .place-order-btn {
-  margin-top: 0.5rem;
-  padding: 0.4rem 0.8rem;
   background-color: green;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
-
 .place-order-btn:hover {
   background-color: darkgreen;
-  color: white;
-  transition: background-color 0.2s;
+}
+
+.quantity-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.quantity-controls button {
+  background-color: var(--color-primary);
+}
+.quantity-controls button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }
 
 .center-page {
@@ -73,32 +88,5 @@ h3 {
 
 .center-page h1 {
   text-align: center;
-  color: black;
-}
-
-.cart-item .quantity-controls {
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-}
-
-.quantity-controls button {
-  padding: 0.4rem 0.7rem;
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.quantity-controls button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-}
-
-.quantity-controls span {
-  font-size: 1.1rem;
-  font-weight: bold;
-  width: 30px;
-  text-align: center;
+  color: var(--color-text);
 }
